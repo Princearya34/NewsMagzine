@@ -1,37 +1,39 @@
-const NavBar=({setCategory})=>{
-return(
-<>
-<nav class="navbar navbar-expand-lg bg-body-tertiary " data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"><span className="badge bg-light text-dark fs-4" >NewsMag</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-       
-        <li class="nav-item">
-          <div class="nav-link"  style={{cursor:'pointer'}}  onClick={()=>setCategory("technology")} >Technology</div>
-        </li>
-        <li class="nav-item">
-          <div class="nav-link" style={{cursor:'pointer'}}  onClick={()=>setCategory("business")}>Business</div>
-        </li>
-        <li class="nav-item">
-          <div class="nav-link" style={{cursor:'pointer'}} onClick={()=>setCategory("Health")} >Health</div>
-        </li>
-        <li class="nav-item">
-          <div class="nav-link" style={{cursor:'pointer'}}  onClick={()=>setCategory("Sports")}>Sports</div>
-        </li>
-        <li class="nav-item">
-          <div class="nav-link" style={{cursor:'pointer'}}  onClick={()=>setCategory("Entertainment")} >Entertainment</div>
-        </li>
-       
-       
-      </ul>
-    </div>
-  </div>
-</nav>
-</>
-);
-}
+import React from 'react';
+
+const categories = [
+  "general",
+  "technology", 
+  "business",
+  "health",
+  "sports",
+  "entertainment",
+];
+
+const NavBar = ({ setCategory, activeCategory }) => {
+  return (
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg">
+      <div className="container-fluid px-4">
+        <a className="navbar-brand fs-3 fw-bold" href="#">
+          🗞️ NewsX
+        </a>
+        <div className="d-flex flex-wrap gap-2">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              className={`btn btn-sm category-btn ${
+                activeCategory === cat
+                  ? 'btn-primary'
+                  : 'btn-outline-light'
+              }`}
+              onClick={() => setCategory(cat)}
+            >
+              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+    </nav>
+  );
+};
+
 export default NavBar;
