@@ -1,116 +1,288 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
+/* Global Styles and Imports */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* CSS Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* News card hover effects */
-.news-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-radius: 15px !important;
+/* Remove default button styles */
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+/* Remove default link styles */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Remove default list styles */
+ul, ol {
+  list-style: none;
+}
+
+/* Remove default input styles */
+input, textarea, select {
+  font: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+/* Image optimization */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Selection styles */
+::selection {
+  background: rgba(59, 130, 246, 0.2);
+  color: var(--text-primary);
+}
+
+/* Utility classes */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.news-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
-/* Category button effects */
-.category-btn {
-  transition: all 0.2s ease;
-  border-radius: 25px !important;
-  font-weight: 500;
-  padding: 8px 16px;
+/* Animation utilities */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.category-btn:hover {
-  transform: translateY(-2px);
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.category-btn.btn-primary {
-  background: linear-gradient(45deg, #007bff, #0056b3);
-  border: none;
-  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.category-btn.btn-outline-light:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
-/* Loading skeleton animation */
-.loading-skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-  border-radius: 8px;
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
+.animate-slideInLeft {
+  animation: slideInFromLeft 0.5s ease-out forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInFromRight 0.5s ease-out forwards;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Text utilities */
+.text-gradient {
+  background: linear-gradient(135deg, #3b82f6, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Loading animation */
 @keyframes loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-/* Badge styling */
-.badge {
-  border-radius: 20px !important;
-  padding: 8px 12px;
-  font-size: 0.85em !important;
+.loading {
+  animation: loading 1s linear infinite;
 }
 
-/* Card improvements */
-.card {
-  border-radius: 15px !important;
-}
-
-.card-img-top {
-  border-radius: 15px 15px 0 0 !important;
-}
-
-/* Navbar improvements */
-.navbar {
-  padding: 1rem 0;
-}
-
-.navbar-brand {
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-/* Button improvements */
-.btn {
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.btn:hover {
-  transform: translateY(-1px);
-}
-
-/* Alert improvements */
-.alert {
-  border-radius: 15px !important;
-  border: none;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-/* Responsive improvements */
-@media (max-width: 768px) {
-  .navbar-brand {
-    font-size: 1.5rem !important;
+/* Print styles */
+@media print {
+  .navbar,
+  .search-container,
+  .theme-toggle,
+  .mobile-menu-btn {
+    display: none !important;
   }
   
-  .category-btn {
-    font-size: 0.8rem;
-    padding: 6px 12px;
+  .news-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
   
-  .news-card:hover {
+  .news-image {
+    max-height: 200px;
+  }
+  
+  .read-more-btn {
+    display: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: #000;
+    --text-muted: #333;
+  }
+  
+  [data-theme="dark"] {
+    --border-color: #fff;
+    --text-muted: #ccc;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .skeleton-shimmer {
+    animation: none;
+  }
+  
+  .spinner-ring {
+    animation: none;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
+  }
+  
+  .articles-grid {
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  }
+}
+
+/* Small screens */
+@media (max-width: 640px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .news-item:hover {
     transform: none;
+  }
+  
+  .nav-btn:hover,
+  .theme-toggle:hover,
+  .read-more-btn:hover {
+    transform: none;
+  }
+  
+  /* Increase touch targets */
+  .nav-btn,
+  .theme-toggle,
+  .read-more-btn {
+    min-height: 44px;
+    min-width: 44px;
   }
 }

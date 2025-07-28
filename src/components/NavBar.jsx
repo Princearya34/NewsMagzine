@@ -1,35 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const categories = [
-  "general",
-  "technology", 
-  "business",
-  "health",
-  "sports",
-  "entertainment",
+  { id: "general", name: "General", icon: "📰" },
+  { id: "technology", name: "Technology", icon: "💻" },
+  { id: "business", name: "Business", icon: "💼" },
+  { id: "health", name: "Health", icon: "🏥" },
+  { id: "sports", name: "Sports", icon: "⚽" },
+  { id: "entertainment", name: "Entertainment", icon: "🎬" },
 ];
 
-const NavBar = ({ setCategory, activeCategory }) => {
+const NavBar = ({ setCategory, activeCategory, darkMode, toggleDarkMode }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleCategoryChange = (categoryId) => {
+    setCategory(categoryId);
+    setIsMenuOpen(false); // Close mobile menu
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg">
-      <div className="container-fluid px-4">
-        <a className="navbar-brand fs-3 fw-bold" href="#">
-          🗞️ NewsX
-        </a>
-        <div className="d-flex flex-wrap gap-2">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              className={`btn btn-sm category-btn ${
-                activeCategory === cat
-                  ? 'btn-primary'
-                  : 'btn-outline-light'
-              }`}
-              onClick={() => setCategory(cat)}
+    <nav className="navbar">
+      <div className="navbar-container">
+        <div className="navbar-brand">
+          <span className="brand-icon">🗞️</span>
+          <span className="brand-text">NewsX</span>
+        </div>
+
+        {/* Mobile menu button */}
+        <button 
+          className="mobile-menu-btn"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        {/* Navigation items */}
+        <div className={`navbar-nav ${isMenuOpen ? 'active' : ''}`}>
+          <div className="nav-categories">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                className={`nav-btn ${activeCategory === cat.id ? 'active' : ''}`}
+                onClick={() => handleCategoryChange(cat.id)}
+              >
+                <span className="nav-icon">{cat.icon}</span>
+                <span className="nav-text">{cat.name}</span>
+              </button>
+            ))}
+          </div>
+          
+          <div className="nav-actions">
+            <button 
+              className="theme-toggle"
+              onClick={toggleDarkMode}
+              aria-label="Toggle dark mode"
             >
-              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              {darkMode ? '☀️' : '🌙'}
             </button>
-          ))}
+          </div>
         </div>
       </div>
     </nav>
